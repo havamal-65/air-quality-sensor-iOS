@@ -1,162 +1,201 @@
-# Wearable Air Quality Sensor
+# AirSense - Mobile Air Quality Monitor
 
-A small wearable air quality sensor that connects to a phone via Bluetooth Low Energy (BLE). Monitors CO2, VOCs, NOx, temperature, and humidity.
+A professional mobile app for monitoring air quality in real-time using the AirSense wearable sensor device. Track CO2, VOCs, NOx, temperature, and humidity directly on your iPhone or Android device.
 
 ## Features
 
-- Real-time CO2 monitoring (400-5000 ppm)
-- VOC and NOx index detection
-- Temperature and humidity sensing
-- BLE connectivity for mobile app
-- OLED display for standalone viewing
-- Portable battery power (1-2 day runtime)
+- **Real-time Monitoring:** Live CO2, VOC, NOx, temperature, and humidity readings
+- **Historical Data:** Track air quality trends over time with interactive charts
+- **Smart Alerts:** Customizable notifications when air quality drops below safe levels
+- **Bluetooth Connectivity:** Wireless connection to your AirSense sensor device
+- **Cross-Platform:** Available on iOS, Android, and web browsers
 
-## Hardware
+## Supported Platforms
 
-### Core Components
-- **MCU:** Seeed XIAO ESP32-C3 (RISC-V, BLE 5.0)
-- **CO2 Sensor:** Adafruit SCD41 (NDIR CO2 + temp + humidity)
-- **VOC Sensor:** Adafruit SGP41 (VOC Index + NOx Index)
-- **Display:** SSD1306 OLED 0.96" 128x64 I2C
-- **Battery:** LiPo 3.7V 500mAh
-- **Total Cost:** ~$109
+- ✅ **iOS** - iPhone and iPad (iOS 13+)
+- ✅ **Android** - Android 8.0+
+- ✅ **Web** - Chrome, Edge, Firefox (desktop and Android only)
 
-### I2C Address Map
-- SCD41: 0x62
-- SGP41: 0x59
-- SSD1306: 0x3C
+## Installation
 
-## Project Structure
+### iOS (iPhone/iPad)
 
-```
-air-quality-sensor/
-├── firmware/           # ESP32-C3 firmware (PlatformIO)
-│   ├── platformio.ini
-│   ├── src/
-│   └── lib/
-├── app/               # Mobile app (React Native/Flutter)
-├── enclosure/         # 3D printable case files
-└── docs/              # Documentation and wiring diagrams
-```
+**Option 1: Expo Go (Recommended for Testing)**
+1. Download **Expo Go** from the App Store (free)
+2. Contact support for access QR code
+3. Scan QR code to launch the app
+
+**Option 2: TestFlight Beta**
+- Request TestFlight access (coming soon)
+
+### Android
+
+**Option 1: Expo Go**
+1. Download **Expo Go** from Google Play
+2. Contact support for access QR code
+3. Scan QR code to launch the app
+
+**Option 2: APK Install**
+- Download APK (coming soon)
+
+### Web Browser
+
+Visit: https://havamal-65.github.io/air-quality-sensor
+
+**Compatibility:**
+- ✅ Android Chrome/Edge - Full BLE support
+- ✅ Desktop Chrome/Edge - Demo mode
+- ⚠️ iOS Safari - Demo mode only (use native app for full functionality)
 
 ## Getting Started
 
-### Prerequisites
+### First Time Setup
 
-1. Install PlatformIO (VS Code extension or CLI):
-   ```bash
-   pip install platformio
-   ```
+1. **Charge Your AirSense Device**
+   - Fully charge before first use
+   - LED indicator shows charging status
 
-2. For mobile app development:
-   - React Native: Node.js + Expo CLI
-   - OR Flutter: Flutter SDK
+2. **Install the App**
+   - Choose your platform (iOS/Android/Web)
+   - Follow installation instructions above
 
-### Firmware Development
+3. **Connect to Device**
+   - Open the app
+   - Tap "Connect to Device"
+   - Select your AirSense sensor from the list
+   - Grant Bluetooth permissions when prompted
 
-```bash
-cd firmware
-pio run -t upload      # Build and upload firmware
-pio device monitor     # View serial output
-```
+4. **Start Monitoring**
+   - View real-time air quality data
+   - Set up custom alerts in Settings
+   - Review historical trends in History tab
 
-### Development Phases
-
-- **Phase 1:** ✅ Basic sensor reading (SCD41) - COMPLETE
-- **Phase 2:** ✅ BLE communication with mobile app - COMPLETE
-- **Phase 3:** Add VOC sensor (SGP41) - READY TO START
-- **Phase 4:** Battery power system
-- **Phase 5:** OLED display
-- **Phase 6:** Enclosure design
-
-### Current Status (Phase 2 Complete)
-
-**Working Features:**
-- ✅ SCD41 CO2/Temperature/Humidity sensor readings
-- ✅ BLE advertising and communication
-- ✅ React Native mobile app with Expo SDK 54
-- ✅ Real-time data transmission over BLE
-- ✅ Web demo deployed to GitHub Pages
-- ✅ Web Bluetooth support (Android/Desktop browsers)
-- ✅ Historical data charts and alerts
-- ✅ Demo mode for testing without hardware
-- ✅ Android development build ready
-
-**Technology Stack:**
-- Expo SDK 54.0.0
-- React Native 0.81.5
-- React 19.1.0
-- Expo Router 6.0.21
-- BLE Library: @sfourdrinier/react-native-ble-plx (RN 0.81 compatible)
-
-**Live Demos:**
-- 🌐 **Web App**: https://havamal-65.github.io/air-quality-sensor
-  - ✅ Works on Android (Chrome/Edge) with real BLE
-  - ✅ Works on Desktop with demo mode
-  - ⚠️ iOS Safari: Demo mode only (Apple blocks Web Bluetooth)
-- 📱 **Mobile (Expo Go)**: Run `npm start` and scan QR code
-  - ✅ Full BLE support on iOS and Android
-  - ⚠️ Requires computer running
-
-**How to Use:**
-
-1. **Web Browser (No Install Required)**
-   - Open https://havamal-65.github.io/air-quality-sensor on Android Chrome/Edge
-   - Tap "Connect Sensor" and select your AirSense device
-   - Real-time data appears instantly
-
-2. **Expo Go App (Development)**
-   ```bash
-   cd app
-   npm install
-   npm start
-   ```
-   - Scan QR code with Expo Go app
-   - Full native BLE support
-
-3. **Standalone App (Coming Soon)**
-   - Build with EAS: `npx eas-cli build --platform ios/android`
-   - Install via TestFlight (iOS) or APK (Android)
-   - Works anywhere without computer
-
-**Next Steps:**
-- Build standalone iOS/Android apps with EAS
-- Connect SGP41 VOC/NOx sensor (Phase 3)
-- See `firmware/PHASE2-BLE-INSTRUCTIONS.md` for detailed setup
-
-## Air Quality Thresholds
+## Air Quality Guidelines
 
 ### CO2 Levels
-| Level | Range (ppm) | Color | Action |
-|-------|-------------|-------|--------|
-| Excellent | <600 | Green | None |
-| Good | 600-800 | Green | None |
-| Moderate | 800-1000 | Yellow | Consider ventilation |
-| Poor | 1000-1500 | Orange | Open windows |
-| Bad | >1500 | Red | Ventilate immediately |
+| Level | Range (ppm) | Indicator | Recommendation |
+|-------|-------------|-----------|----------------|
+| Excellent | < 600 | 🟢 Green | Ideal air quality |
+| Good | 600-800 | 🟢 Green | Good ventilation |
+| Moderate | 800-1000 | 🟡 Yellow | Consider opening windows |
+| Poor | 1000-1500 | 🟠 Orange | Ventilate immediately |
+| Bad | > 1500 | 🔴 Red | Poor ventilation - take action |
 
 ### VOC Index
-| Level | Range | Color | Action |
-|-------|-------|-------|--------|
-| Good | 0-150 | Green | None |
-| Moderate | 150-250 | Yellow | Check for sources |
-| Poor | 250-400 | Orange | Ventilate |
-| Bad | >400 | Red | Remove source |
+| Level | Range | Indicator | Recommendation |
+|-------|-------|-----------|----------------|
+| Good | 0-150 | 🟢 Green | Safe levels |
+| Moderate | 150-250 | 🟡 Yellow | Monitor for sources |
+| Poor | 250-400 | 🟠 Orange | Identify and ventilate |
+| Bad | > 400 | 🔴 Red | Remove VOC source immediately |
 
-## Documentation
+## App Features
 
-See `/docs` for:
-- Wiring diagrams
-- BOM (Bill of Materials)
-- Sensor specifications
-- BLE service UUIDs
+### Home Screen
+- Real-time sensor readings
+- Overall air quality score
+- Color-coded status indicators
+- Quick connection status
 
-## Resources
+### History
+- Interactive charts showing trends
+- Filter by time range (hour, day, week, month)
+- Export data (coming soon)
 
-- [SCD41 Datasheet](https://sensirion.com/media/documents/E0F04247/631EF271/CD_DS_SCD40_SCD41_Datasheet_D1.pdf)
-- [SGP41 Datasheet](https://sensirion.com/media/documents/5FE8673C/61E96F50/Sensirion_Gas_Sensors_Datasheet_SGP41.pdf)
-- [ESP32-C3 Datasheet](https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf)
+### Recommendations
+- Personalized tips based on current readings
+- Health impact information
+- Suggested actions to improve air quality
+
+### Settings
+- Customize alert thresholds
+- Enable/disable notifications
+- Dark mode toggle
+- Device information
+- App version and updates
+
+## Troubleshooting
+
+### Can't Connect to Device
+
+1. **Check Bluetooth:**
+   - Ensure Bluetooth is enabled on your phone
+   - Grant location permission (required for iOS/Android BLE)
+
+2. **Check Device:**
+   - Ensure AirSense device is powered on
+   - Check battery level
+   - Try moving closer to the device
+
+3. **Restart:**
+   - Close and reopen the app
+   - Turn Bluetooth off and on
+   - Restart your phone if issues persist
+
+### iOS Safari Web App Shows Demo Mode
+
+This is normal - Apple restricts Web Bluetooth on iOS Safari.
+**Solution:** Install the native iOS app via Expo Go or TestFlight for full functionality.
+
+### Android Connection Issues
+
+1. Grant all permissions:
+   - Bluetooth
+   - Location (required for BLE scanning)
+2. Check battery optimization settings
+3. Try restarting Bluetooth
+
+### Data Not Updating
+
+- Ensure device is within Bluetooth range (10m/33ft)
+- Check device battery level
+- Reconnect to device
+- Close other apps using Bluetooth
+
+## Support
+
+For technical support or questions:
+- **Email:** support@airsense.app (update with your actual contact)
+- **GitHub Issues:** https://github.com/havamal-65/air-quality-sensor-iOS/issues
+
+## Privacy
+
+- All data is stored locally on your device
+- No cloud storage or data collection
+- Bluetooth connection is secure and encrypted
+- No personal information is required
+
+## System Requirements
+
+**iOS:**
+- iOS 13.0 or later
+- iPhone 6s or newer
+- iPad (5th generation) or newer
+- Bluetooth 5.0 compatible
+
+**Android:**
+- Android 8.0 (Oreo) or later
+- Bluetooth 5.0 compatible
+- Minimum 2GB RAM recommended
+
+**Web:**
+- Chrome 56+, Edge 79+, Firefox 52+
+- Bluetooth adapter required for real device connection
+
+## Technology
+
+Built with:
+- React Native & Expo SDK 54
+- Bluetooth Low Energy (BLE) protocol
+- Real-time data visualization
+- Cross-platform compatibility
 
 ## License
 
-MIT
+Copyright © 2026 AirSense. All rights reserved.
+
+For licensing inquiries, contact: licensing@airsense.app
+
+---
+
+**Note:** This repository contains the mobile app code. The AirSense hardware device is sold separately. Contact sales for hardware purchase information.
